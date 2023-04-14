@@ -1,0 +1,31 @@
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.block-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.block-table th,
+.block-table td {
+  padding: 0.5rem;
+  border: 1px solid black;
+}
+
+.block-table tbody tr:hover {
+  cursor: pointer;
+  background-color: #f5f5f5;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.block-table th {
+  font-weight: bold;
+  background-color: #e3f2fd;
+  text-align: center;
+}
+
+.block-table td {
+  text-align: center;
+}
