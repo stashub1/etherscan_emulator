@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getBlockTransactions } from "../network/Network.js";
+import "./styles.css"; // Import the styles.css file
 
 import { ethers } from "ethers";
 
@@ -11,9 +12,13 @@ const BlockTransactions = () => {
   const { blockNumber } = useParams();
 
   useEffect(() => {
-    const txs = getBlockTransactions(blockNumber);
-    setTransactions(txs);
+    getTransactions();
   }, [blockNumber]);
+
+  async function getTransactions() {
+    const txs = await getBlockTransactions(blockNumber);
+    setTransactions(txs);
+  }
 
   const formatNumber = (num) => {
     if (num === undefined) return "";
@@ -22,7 +27,7 @@ const BlockTransactions = () => {
 
   return (
     <div className="table-container">
-      <table className="transaction-table">
+      <table className="block-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -32,15 +37,15 @@ const BlockTransactions = () => {
           </tr>
         </thead>
         <tbody>
-          {/* {
-            transactions.map((tx, index) => (
-              <tr key={index}>
-                <td>{tx.hash}</td>
-                <td>{tx.from}</td>
-                <td>{tx.to}</td>
-                <td>{formatNumber(tx.value)}</td>
-              </tr>
-            ))} */}
+          {console.log("Near map: ", transactions)}
+          {transactions.map((tx, index) => (
+            <tr key={index}>
+              <td>{tx.hash}</td>
+              <td>{tx.from}</td>
+              <td>{tx.to}</td>
+              <td>{formatNumber(tx.value)}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

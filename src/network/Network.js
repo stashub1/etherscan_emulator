@@ -34,7 +34,7 @@ export async function fetchBlockData(blockNumber) {
     const transactions = blockData.transactions;
     const amount = transactions ? transactions.length : 0;
     return {
-      number: parseInt(blockData.number, 16),
+      number: blockData.number,
       timestamp,
       amount,
       hash: blockData.hash,
@@ -52,13 +52,11 @@ export async function getBlockTransactions(blockNumber) {
       `https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=${blockNumber}&boolean=true&apikey=${API_KEY}`
     );
     const block = response.data.result;
-    console.log("BlockL ", block);
+    //console.log("BlockL ", block);
     const txs = block.transactions;
 
     const formattedTxs = await Promise.all(
       txs.map(async (tx) => {
-        console.log("Tx from: ", tx.from);
-        console.log("Tx to: ", tx.to);
         //const from = await getContractType(tx.from);
         //const to = await getContractType(tx.to);
         return {
@@ -69,7 +67,8 @@ export async function getBlockTransactions(blockNumber) {
         };
       })
     );
-    console.log("Formatted txs: ", formattedTxs);
+    return formattedTxs;
+    //console.log("Formatted txs: ", formattedTxs);
   } catch (error) {
     console.error(error);
   }

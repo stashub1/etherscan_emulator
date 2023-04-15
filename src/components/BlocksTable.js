@@ -61,7 +61,7 @@ function BlocksTable() {
               key={block.number}
               onClick={() => handleBlockClick(block.number)}
             >
-              <td>{block.number}</td>
+              <td>{parseInt(block.number, 16)}</td>
               <td>{new Date(block.timestamp).toLocaleString()}</td>
               <td>{block.amount}</td>
               <td>{block.hash}</td>
